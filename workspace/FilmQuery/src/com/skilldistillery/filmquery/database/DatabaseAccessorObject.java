@@ -43,7 +43,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String rating = rs.getString(9);
 				String specialFeatures = rs.getString(10);
 				int id = rs.getInt(11);
+				List<Actor> cast = getActorsByFilmId(filmId);
 				film = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures);
+				film.setCast(cast);
 			}
 
 			rs.close();
