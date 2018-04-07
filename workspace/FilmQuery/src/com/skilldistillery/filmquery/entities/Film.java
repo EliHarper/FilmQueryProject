@@ -14,6 +14,7 @@ public class Film {
 	private double replacementCost;
 	private String rating;
 	private String specialFeatures;
+	private String language;
 	private List<Actor> cast;
 	public int getId() {
 		return id;
@@ -170,7 +171,7 @@ public class Film {
 	}
 	
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
-			double rentalRate, int length, double replacementCost, String rating, String specialFeatures) {
+			double rentalRate, int length, double replacementCost, String rating, String specialFeatures, String language) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -183,10 +184,11 @@ public class Film {
 		this.replacementCost = replacementCost;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
+		this.language = language;
 	}
 	
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
-			double rentalRate, int length, double replacementCost, String rating, String specialFeatures,
+			double rentalRate, int length, double replacementCost, String rating, String specialFeatures, String language,
 			List<Actor> cast) {
 		super();
 		this.id = id;
@@ -200,6 +202,7 @@ public class Film {
 		this.replacementCost = replacementCost;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
+		this.language = language;
 		this.cast = cast;
 	}
 	
@@ -228,9 +231,17 @@ public class Film {
 		builder.append(rating);
 		builder.append(", specialFeatures: ");
 		builder.append(specialFeatures);
+		builder.append(", language: ");
+		builder.append(language);
 		builder.append(", cast: ");
 		builder.append(cast);
 		return builder.toString();
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	
 }
