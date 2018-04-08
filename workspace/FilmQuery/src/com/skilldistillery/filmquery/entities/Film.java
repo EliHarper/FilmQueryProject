@@ -16,6 +16,14 @@ public class Film {
 	private String specialFeatures;
 	private String language;
 	private List<Actor> cast;
+	private String genre;
+	
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 	public int getId() {
 		return id;
 	}
@@ -171,7 +179,7 @@ public class Film {
 	}
 	
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
-			double rentalRate, int length, double replacementCost, String rating, String specialFeatures, String language) {
+			double rentalRate, int length, double replacementCost, String rating, String specialFeatures, String language, String genre) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -185,11 +193,12 @@ public class Film {
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
 		this.language = language;
+		this.genre = genre;
 	}
 	
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures, String language,
-			List<Actor> cast) {
+			List<Actor> cast, String genre) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -204,6 +213,7 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 		this.language = language;
 		this.cast = cast;
+		this.genre = genre;
 	}
 	
 	@Override
@@ -235,6 +245,8 @@ public class Film {
 		builder.append(language);
 		builder.append(", cast: ");
 		builder.append(cast);
+		builder.append(", genre: ");
+		builder.append(genre);
 		return builder.toString();
 	}
 	public String getLanguage() {

@@ -65,7 +65,7 @@ public class Actor {
 		builder.append(firstName);
 		builder.append("  \tLast name: ");
 		builder.append(lastName);
-		builder.append("\t   Actor id: ");
+		builder.append("   \tActor id: ");
 		builder.append(id);
 		return builder.toString();
 	}

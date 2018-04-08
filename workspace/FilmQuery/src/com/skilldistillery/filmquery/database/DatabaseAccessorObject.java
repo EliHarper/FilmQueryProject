@@ -24,7 +24,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film getFilmById(int filmId) {
 		Film film = null;
-		String sql = "SELECT f.title, f.description, f.release_year, f.language_id, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, f.id, l.name from film f join language l on l.id = f.language_id where f.id = ?";
+		String sql = "SELECT f.title, f.description, f.release_year, f.language_id, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, f.id, l.name, c.name from film f join language l on l.id = f.language_id join film_category fc on f.id = fc.film_id join category c on fc.category_id = c.id where f.id = ?";
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -43,8 +43,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String specialFeatures = rs.getString(10);
 				int id = rs.getInt(11);
 				String language = rs.getString(12);
+				String genre = rs.getString(13);
 				List<Actor> cast = getActorsByFilmId(filmId);
-				film = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures, language);
+				film = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures, language, genre);
 				film.setCast(cast);
 			}
 
@@ -125,7 +126,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film getFilmByKeyword(String keyword) {
 		Film film = null;
-		String sql = "SELECT f.title, f.description, f.release_year, f.language_id, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, f.id, l.name from film f join language l on l.id = f.language_id where title like ? or description like ?";
+		String sql = "SELECT f.title, f.description, f.release_year, f.language_id, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, f.id, l.name, c.name from film f join language l on l.id = f.language_id join film_category fc on f.id = fc.film_id join category c on fc.category_id = c.id where title like ? or description like ?;";
 		
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
@@ -146,8 +147,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String specialFeatures = rs.getString(10);
 				int id = rs.getInt(11);
 				String language = rs.getString(12);
+				String genre = rs.getString(13);
 				List<Actor> cast = getActorsByFilmId(id);
-				film = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures, language);
+				film = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures, language, genre);
 				film.setCast(cast);
 			}
 

@@ -21,11 +21,6 @@ public class FilmQueryApp {
     
   }
 
-//  private void test() {
-//	List<Actor> actors = db.getActorsByFilmId(1);
-//    System.out.println(actors);
-//  }
-
   private void launch() {
     Scanner input = new Scanner(System.in);
     
@@ -64,11 +59,16 @@ public class FilmQueryApp {
 			  		
 			  		if (fid > 0 && fid < 1001) {
 			  			Film film = db.getFilmById(fid);
-			  			System.out.println("\n" + film.getTitle() + ", released in " + film.getReleaseYear() + ", is a(n) " + film.getLanguage() + " film about " + film.getDescription() + "\n\nCast:\n");
+			  			System.out.println("\n" + film.getTitle() + ", released in " + film.getReleaseYear() + ", is a(n) " + film.getLanguage() + " film about " + film.getDescription() + "\n\nGenre: " + film.getGenre() + "\n");
 			  			
-			  			for (Actor a : film.getCast()) {
-			  				System.out.println(a);
-			  			}
+			  			if (film.getCast().size() != 0) {
+							  System.out.println("\nCast:\n");
+							  
+							  for (Actor a : film.getCast()) {
+					  				System.out.println(a);
+					  			}
+						  
+						  }
 			  		}
 			  		else {
 			  			System.out.println("The number must be an integer over 0 and under 1001.\n");
@@ -81,7 +81,7 @@ public class FilmQueryApp {
 		  case 2: 
 			  Film film = null;
 			  System.out.print("Please enter your search keyword: ");
-			  String keyword = input.next();
+			  String keyword = input.nextLine();
 			  try {
 				film = db.getFilmByKeyword(keyword);
 			} catch (SQLException e) {
@@ -94,17 +94,24 @@ public class FilmQueryApp {
 				  continue;
 			  }
 			  
-			  System.out.println("\n" + film.getTitle() + " a(n) " + film.getLanguage()+ " film, released in " + film.getReleaseYear() + " is " + film.getDescription() + "\n\nRated: " + film.getRating() + "\n\nCast:\n");
+			  System.out.println("\n" + film.getTitle() + " a(n) " + film.getLanguage()+ " film, released in " + film.getReleaseYear() + ", is " + film.getDescription() + "\n\nRated: " + film.getRating() + "\n\nGenre: " + film.getGenre() + "\n");
+			 
+			  if (film.getCast().size() != 0) {
+				  System.out.println("\nCast:\n");
+				  
+				  for (Actor a : film.getCast()) {
+		  				System.out.println(a);
+		  			}
 			  
-			  for (Actor a : film.getCast()) {
-	  				System.out.println(a);
-	  			}
+			  }
+			  
+			  System.out.println();
 			  
 			  break;
 			  
 		  case 3:
 			  
-			  System.out.println("K thx bye!");
+			  System.out.println("\nK thanks bye!");
 			  
 			  break;
 			  
@@ -112,7 +119,7 @@ public class FilmQueryApp {
 			System.out.println("\nYou have to enter 1, 2, or 3... I know that must be difficult for you to follow, ya goober.\n");
 			
 //			startUserInterface(input); <- Calling method from within the method was causing recursion problems where  
-//			SQL maintained multiple connections after getting an empty set after a query
+//			SQL maintained multiple connections after getting an empty set after querying
 			
 			break;
 		  }
